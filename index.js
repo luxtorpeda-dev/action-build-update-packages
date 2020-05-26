@@ -42,7 +42,7 @@ async function run() {
             }
         }
         
-        for(let steamid of newData) {
+        for(let steamid in newData) {
             packages[steamid] = newData[steamid];
         }
         
