@@ -12,7 +12,7 @@ async function run() {
         const fileStr = await fs.readFile(packagesFileName, 'utf-8');
         const packages = JSON.parse(fileStr);
         
-        const files = JSON.parse(core.getInput('matrix'));
+        const files = JSON.parse(core.getInput('matrix')).include;
         const version = core.getInput('version');
         
         const newData = {};
