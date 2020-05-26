@@ -1,0 +1,13 @@
+name: 'Update Packages JSON'
+description: 'Update packages.json file'
+author: 'd10sfan'
+runs:
+    using: 'node12'
+    main: 'dist/index.js'
+inputs:
+  matrix:
+    description: Generated matrix from earlier that contains file names
+    required: true
+  version:
+    description: Current version
+    required: true
