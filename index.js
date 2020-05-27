@@ -20,7 +20,7 @@ async function run() {
         for(let i = 0; i < files.length; i++) {
             const fileName = files[i].name;
             const extension = files[i].extension;
-            const fileNameArr = fileName.split('-');
+            const fileNameArr = fileName.split(/\-(?=[^\-]+$)/);
             const engineName = fileNameArr[0];
             const steamid = fileNameArr[1];
             
