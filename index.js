@@ -29,14 +29,38 @@ async function run() {
             if(packages[steamid]) {
                 if(!newData[steamid]) {
                     newData[steamid] = packages[steamid];
-                    newData[steamid].download = [];
                 }
                 
-                newData[steamid].download.push({
+                const newDownloadObj = {
                     name: engineName,
                     url: `https://bintray.com/luxtorpeda-dev/assets/download_file?file_path=`,
                     file: `${fileName}-${version}${extension}`
-                });
+                };
+                
+                let pushToArray = false;
+                let overwriteArrIdx = -1;
+                
+                if(!newData[steamid].download || !newData[steamid].download.length) {
+                    pushToArray = true;
+                    newData[steamid].download = [];
+                } else {
+                    for(let y = 0; y < newData[steamid].download.length; y++) {
+                        if(newData[steamid].download[y].name === engineName) {
+                            overwriteArrIdx = y;
+                            break;
+                        }
+                    }
+                    
+                    if(overwriteArrIdx === -1) {
+                        pushToArray = true;
+                    }
+                }
+                
+                if(pushToArray) {
+                    newData[steamid].download.push(newDownloadObj);
+                } else if(overwriteArrIdx !== -1) {
+                    newData[steamid].download[overwriteArrIdx] = newDownloadObj;
+                }
                 
                 console.log(`Updating ${steamid} to ${JSON.stringify(newData[steamid].download)}`);
             }
