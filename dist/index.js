@@ -553,7 +553,8 @@ async function run() {
                     fileName: common.fileName,
                     steamid: appIds[i],
                     engineName: common.engineName,
-                    extension: common.extension
+                    extension: common.extension,
+                    common: true
                 });
             }
         }
@@ -563,6 +564,7 @@ async function run() {
             const steamid = finalFiles[i].steamid;
             const fileName = finalFiles[i].fileName;
             const extension = finalFiles[i].extension;
+            const isCommon = finalFiles[i].common;
     
             console.log(`Found ${engineName} for steam-id ${steamid}`);
             
@@ -574,7 +576,8 @@ async function run() {
                 const newDownloadObj = {
                     name: engineName,
                     url: `https://bintray.com/luxtorpeda-dev/assets/download_file?file_path=`,
-                    file: `${fileName}-${version}${extension}`
+                    file: `${fileName}-${version}${extension}`,
+                    cache_by_name: isCommon
                 };
                 
                 let pushToArray = false;
