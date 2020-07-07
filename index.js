@@ -14,7 +14,7 @@ async function run() {
         
         const files = JSON.parse(core.getInput('matrix')).include;
         const version = core.getInput('version');
-        const appIdsStr = core.getInput('appIdsStr');
+        const appIdsStr = core.getInput('app_ids');
         const appIds = appIdsStr.split(' ');
         
         const newData = {};
