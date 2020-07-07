@@ -518,6 +518,9 @@ async function run() {
         
         const files = JSON.parse(core.getInput('matrix')).include;
         const version = core.getInput('version');
+        const appIdsStr = JSON.parse(core.getInput('appIdsStr'));
+        
+        console.log("received app ids", appIdsStr);
         
         const newData = {};
         
