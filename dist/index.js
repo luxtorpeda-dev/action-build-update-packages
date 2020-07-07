@@ -519,10 +519,11 @@ async function run() {
         const files = JSON.parse(core.getInput('matrix')).include;
         const version = core.getInput('version');
         const appIdsStr = JSON.parse(core.getInput('appIdsStr'));
-        
-        console.log("received app ids", appIdsStr);
+        const appIds = appIdsStr.split(' ');
         
         const newData = {};
+        const finalFiles = [];
+        let common;
         
         for(let i = 0; i < files.length; i++) {
             const fileName = files[i].name;
@@ -531,6 +532,38 @@ async function run() {
             const engineName = fileNameArr[0];
             const steamid = fileNameArr[1];
             
+            const finalFile = {
+                fileName,
+                steamid,
+                engineName,
+                extension
+            };
+            
+            if(steamid === 'common') {
+                common = finalFile;
+                continue;
+            } else {
+                finalFiles.push(finalFile);
+            }
+        }
+        
+        if(common) {
+            for(let i = 0; i < appIds.length; i++) {
+                finalFiles.push({
+                    fileName: common.fileName,
+                    steamid: appIds[i],
+                    engineName: common.engineName,
+                    extension: common.extension
+                });
+            }
+        }
+        
+        for(let i = 0; i < finalFiles.length; i++) {
+            const engineName = finalFiles[i].engineName;
+            const steamid = finalFiles[i].steamid;
+            const fileName = finalFiles[i].fileName;
+            const extension = finalFiles[i].extension;
+    
             console.log(`Found ${engineName} for steam-id ${steamid}`);
             
             if(packages[steamid]) {
