@@ -11,3 +11,6 @@ inputs:
   version:
     description: Current version
     required: true
+  app_ids:
+    description: Set of app ids for the script
+    required: true
