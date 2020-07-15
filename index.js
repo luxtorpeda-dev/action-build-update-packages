@@ -71,7 +71,7 @@ async function run() {
                 
                 const newDownloadObj = {
                     name: engineName,
-                    url: `https://bintray.com/luxtorpeda-dev/assets/download_file?file_path=`,
+                    url: `https://github.com/luxtorpeda-dev/packages/releases/download/${engineName}-${version}/`,
                     file: `${fileName}-${version}${extension}`,
                     cache_by_name: isCommon
                 };
