@@ -3,7 +3,7 @@ const { context, GitHub } = require('@actions/github');
 const fs = require('fs').promises;
 const path = require('path');
 
-const packagesFileName = "metadata/packages.json";
+const packagesFileName = "metadata/packagesruntime.json";
 
 console.log('Starting.');
 
