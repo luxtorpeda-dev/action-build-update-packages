@@ -630,8 +630,8 @@ async function run() {
     
             console.log(`Found ${engineName} for steam-id ${steamid}`);
 
-            for(let i = 0; i < packages.games.length; i++) {
-                const game = packages.games[i];
+            for(let z = 0; z < packages.games.length; z++) {
+                const game = packages.games[z];
                 if(game.app_id === steamid) {
                      const newDownloadObj = {
                         name: engineName,
@@ -669,7 +669,7 @@ async function run() {
                     break;
                 }
 
-                packages.games[i] = game;
+                packages.games[z] = game;
             }
         }
         
