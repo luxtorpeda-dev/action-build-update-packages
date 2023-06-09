@@ -63,50 +63,48 @@ async function run() {
             const isCommon = finalFiles[i].common;
     
             console.log(`Found ${engineName} for steam-id ${steamid}`);
-            
-            if(packages[steamid]) {
-                if(!newData[steamid]) {
-                    newData[steamid] = packages[steamid];
-                }
-                
-                const newDownloadObj = {
-                    name: engineName,
-                    url: `https://github.com/luxtorpeda-dev/packages/releases/download/${engineName}-${version}/`,
-                    file: `${fileName}-${version}${extension}`,
-                    cache_by_name: isCommon
-                };
-                
-                let pushToArray = false;
-                let overwriteArrIdx = -1;
-                
-                if(!newData[steamid].download || !newData[steamid].download.length) {
-                    pushToArray = true;
-                    newData[steamid].download = [];
-                } else {
-                    for(let y = 0; y < newData[steamid].download.length; y++) {
-                        if(newData[steamid].download[y].name === engineName) {
-                            overwriteArrIdx = y;
-                            break;
+
+            for(let i = 0; i < packages.games.length; i++) {
+                const game = packages.games[i];
+                if(game.app_id === steamid) {
+                     const newDownloadObj = {
+                        name: engineName,
+                        url: `https://github.com/luxtorpeda-dev/packages/releases/download/${engineName}-${version}/`,
+                        file: `${fileName}-${version}${extension}`,
+                        cache_by_name: isCommon
+                    };
+
+                    let pushToArray = false;
+                    let overwriteArrIdx = -1;
+
+                    if(!game.download || !game.download.length) {
+                        pushToArray = true;
+                        game.download = [];
+                    } else {
+                        for(let y = 0; y < game.download.length; y++) {
+                            if(game.download[y].name === engineName) {
+                                overwriteArrIdx = y;
+                                break;
+                            }
+                        }
+
+                        if(overwriteArrIdx === -1) {
+                            pushToArray = true;
                         }
                     }
-                    
-                    if(overwriteArrIdx === -1) {
-                        pushToArray = true;
+
+                    if(pushToArray) {
+                        game.download.push(newDownloadObj);
+                    } else if(overwriteArrIdx !== -1) {
+                        game.download[overwriteArrIdx] = newDownloadObj;
                     }
+
+                    console.log(`Updating ${steamid} to ${JSON.stringify(newData[steamid].download)}`);
+                    break;
                 }
-                
-                if(pushToArray) {
-                    newData[steamid].download.push(newDownloadObj);
-                } else if(overwriteArrIdx !== -1) {
-                    newData[steamid].download[overwriteArrIdx] = newDownloadObj;
-                }
-                
-                console.log(`Updating ${steamid} to ${JSON.stringify(newData[steamid].download)}`);
+
+                packages.games[i] = game;
             }
-        }
-        
-        for(let steamid in newData) {
-            packages[steamid] = newData[steamid];
         }
         
         const finalPackagesStr = JSON.stringify(packages, null, 4);
