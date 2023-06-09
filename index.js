@@ -67,7 +67,8 @@ async function run() {
             for(let z = 0; z < packages.games.length; z++) {
                 const game = packages.games[z];
                 if(game.app_id === steamid) {
-                     const newDownloadObj = {
+                    console.log(`found game: ${JSON.stringify(game)}`);
+                    const newDownloadObj = {
                         name: engineName,
                         url: `https://github.com/luxtorpeda-dev/packages/releases/download/${engineName}-${version}/`,
                         file: `${fileName}-${version}${extension}`,
@@ -100,10 +101,9 @@ async function run() {
                     }
 
                     console.log(`Updating ${steamid} to ${JSON.stringify(newData[steamid].download)}`);
+                    packages.games[z] = game;
                     break;
                 }
-
-                packages.games[z] = game;
             }
         }
         
