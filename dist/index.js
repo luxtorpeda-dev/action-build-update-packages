@@ -630,7 +630,7 @@ async function run() {
     
             console.log(`Found ${engineName} for steam-id ${steamid}`);
 
-            if(steamid === 'common') {
+            if(steamid === 'default') {
                 const game = packages.default_engine;
                 const newDownloadObj = {
                     name: engineName,
