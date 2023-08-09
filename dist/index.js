@@ -630,6 +630,45 @@ async function run() {
     
             console.log(`Found ${engineName} for steam-id ${steamid}`);
 
+            if(steamid === 'common') {
+                const game = packages.default_engine;
+                const newDownloadObj = {
+                    name: engineName,
+                    url: `https://github.com/luxtorpeda-dev/packages/releases/download/${engineName}-${version}/`,
+                    file: `${fileName}-${version}${extension}`,
+                    cache_by_name: isCommon
+                };
+
+                let pushToArray = false;
+                let overwriteArrIdx = -1;
+
+                if(!game.download || !game.download.length) {
+                    pushToArray = true;
+                    game.download = [];
+                } else {
+                    for(let y = 0; y < game.download.length; y++) {
+                        if(game.download[y].name === engineName) {
+                            overwriteArrIdx = y;
+                            break;
+                        }
+                    }
+
+                    if(overwriteArrIdx === -1) {
+                        pushToArray = true;
+                    }
+                }
+
+                if(pushToArray) {
+                    game.download.push(newDownloadObj);
+                } else if(overwriteArrIdx !== -1) {
+                    game.download[overwriteArrIdx] = newDownloadObj;
+                }
+
+                console.log(`Updating ${steamid} to ${JSON.stringify(game.download)}`);
+                packages.default_engine = game;
+                continue;
+            }
+
             for(let z = 0; z < packages.games.length; z++) {
                 const game = packages.games[z];
                 if(game.app_id === steamid) {
