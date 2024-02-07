@@ -2,7 +2,7 @@ name: 'Update Packages JSON'
 description: 'Update packages.json file'
 author: 'd10sfan'
 runs:
-    using: 'node16'
+    using: 'node20'
     main: 'dist/index.js'
 inputs:
   matrix:
