@@ -31758,7 +31758,7 @@ const { context, GitHub } = __nccwpck_require__(3228);
 const fs = (__nccwpck_require__(9896).promises);
 const path = __nccwpck_require__(6928);
 
-const packagesFileName = "metadata/packagesrt4.json";
+const packagesFileName = "metadata/packagessniper_v2.json";
 
 console.log('Starting.');
 
